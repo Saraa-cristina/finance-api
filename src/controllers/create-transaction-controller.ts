@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import * as TransactionService from '../services/create-transaction-service';
+import {createTransaction} from '../../services/create-transaction-service';
 
 export const create = async (req: Request, res: Response) => {
   const transaction = await TransactionService.createTransaction(req.body);
@@ -16,12 +16,12 @@ export const getById = async (req: Request, res: Response) => {
   res.json(transaction);
 };
 
-export const update = async (req: Request, res: Response) => {
-  const transaction = await TransactionService.updateTransaction(req.params.id, req.body);
-  res.json(transaction);
-};
-
 export const remove = async (req: Request, res: Response) => {
   await TransactionService.deleteTransaction(req.params.id);
   res.status(204).send();
+};
+
+export const update = async (req: Request, res: Response) => {
+  const transaction = await TransactionService.updateTransaction(req.params.id, req.body);
+  res.json(transaction);
 };
